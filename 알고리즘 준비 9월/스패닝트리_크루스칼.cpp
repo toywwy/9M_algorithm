@@ -6,14 +6,12 @@ union find
 //초기화 부분을 잊으면 안되 음수라는 것은 집합에서 자기혼자라는 사실이기 때문
 */
 
-
 #include<iostream>
 #include<algorithm>
 
 #define N 1000
 #define LINE 100000
 using namespace std;
-
 
 class Edge
 {
@@ -90,7 +88,6 @@ int main(void)
 			if (cnt >= n)
 				break;
 		}
-
 	}
 
 	cout << value << endl;
