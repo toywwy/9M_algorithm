@@ -54,13 +54,13 @@ int main(void)
 	int n, q;
 	scanf("%d %d", &n, &q);
 
-	Edge *e = (Edge * ) malloc(sizeof(Edge)*q);//q가 100000이다. 사이즈. 그냥 선언하면 스택 터짐.
+	Edge *e = (Edge * ) malloc(sizeof(Edge)*q +1);//q가 100000이다. 사이즈. 그냥 선언하면 스택 터짐.
 
 	for (int i = 0; i < q; i++)
 	{
 		int a, b, c;
 		scanf("%d %d %d", &a, &b, &c);
-		e[i] = Edge(a - 1, b - 1, c);
+		e[i] = Edge(a, b, c);
 	}
 
 	sort(e, e + q); // operator 때문에 w에 따라서 정렬을 하게된다.
