@@ -8,6 +8,8 @@ disjoint-set
 한마디로 배열을 인덱스 처럼사용을한다. 결국에 재귀를 타서 ... 루트에 다다르도록 만드는 것이다.
 그리고 union은 그 두 집합을 이어주는 것이다.
 
+참조 : http://kks227.blog.me/220791837179?Redirect=Log&from=postView
+
 */
 
 
@@ -20,7 +22,7 @@ int *disjoint;
 
 int mFind(int a)
 {
-	if (disjoint[a] < 0)
+	if (disjoint[a] < 0)//-1 이라면 어디에도 소속이 된게 아니니까.
 		return a;//자기 자신이 루트임.
 	else
 		return disjoint[a] = mFind(disjoint[a]);
