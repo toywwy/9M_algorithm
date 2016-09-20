@@ -35,6 +35,25 @@ public:
 };
 
 
+//sort에 사용하기 위해서 이용한다.
+//template <class X> 이거 템플릿으로정의 하면 이름이 안들어서 왜 정의를 새로해서 해야되지?
+class sortType
+{
+public:
+	bool operator() (P &x1, P &x2)//얜 전역에 느낌이라서 그런거다 . 괄호 ()를 쓰는걸 잊지 말도록 해야함.
+	{
+		return x1.first < x2.first; //얘는 반대 인것으로 판단된다....
+	}
+}havetorename;//반드시 지정한 이름으로 사용해야 되는 이유는 뭘까??
+
+
+struct myclass {
+	bool operator()  (P &x1, P &x2)
+	{
+		return x1.first < x2.first;
+	}
+} myobject;
+
 int main(void)
 {
 
@@ -78,6 +97,31 @@ int main(void)
 
 	for (int i = 0; i < 10; i++)
 		cout << arr[i].a << " , " << arr[i].b << " , " << arr[i].c << endl;
+
+
+
+	cout << " ----------------------------------------------" << endl;
+	cout << " ----------------------------------------------" << endl;
+	cout << " ----------------------------------------------" << endl << endl;
+
+
+
+	vector<P> v;
+	v.push_back(P(1, 23));
+	v.push_back(P(2, 1));
+	v.push_back(P(3, 4));
+	v.push_back(P(4, 7));
+	v.push_back(P(5, 13));
+	v.push_back(P(6, 25));
+	v.push_back(P(7, 2));
+	v.push_back(P(8, 233));
+
+
+	sort(v.begin(), v.end(), havetorename);
+
+
+	for (P p : v)
+		cout << p.first << " , " << p.second << endl;
 
 
 	return 0;
