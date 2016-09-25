@@ -15,10 +15,12 @@
 #include<iostream>
 #include<vector>
 #include<algorithm>
-using namespace std;
 
 #define N 10000
 #define INF 10000002
+
+using namespace std;
+
 typedef pair<int, int> P;
 
 bool flag[N + 2];
@@ -34,18 +36,16 @@ inline bool check(int start, int target) //target의 값을 찾을수 있냐 없냐
 	{
 		if (!flag[p.first])
 		{
-			if (target <= p.second)//그래야 가치있음
+			if (target <= p.second)//target을 찾을수 있다. 최소한 같다.
 			{
-
 				if (p.first == mEnd)
 					return true;
 
 				flag[p.first] = 1;
 				res = check(p.first, target);
-				//flag[p.first] = 0;
-				//예를들어서 1에서 7을 가나 2에서 7을 가나 7은 같은 목표에 도달 했을 것이다. 그래서 두번 갈 필요가 없는 것 이다.
+				//flag[p.first] = 0; 하면 타임리밋 예를들어서 1에서 7을 가나 2에서 7을 가나 7은 같은 목표에 도달 했을 것이다. 그래서 두번 갈 필요가 없는 것 이다.
 
-				if (res)
+				if (res) // 빠르게 리턴 해줘야한다. 아니면 도중에 res가 변질 될수도 있어.
 					return true;
 			}
 		}
