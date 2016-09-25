@@ -1,5 +1,14 @@
+
+/*
+문제 : 트리순회
+문제 번호: 1991
+풀이법 : 배열로 자식 두개를 갖고있는 방식
+날짜 : 160925
+기타 : 좌우가 있는걸 깜밖하고 벡터로 풀었다가 pushback으로했다가 ..
+. 도 받아서 처리를 해줘야 했다.
+*/
+
 #include<iostream>
-#include<vector>
 
 using namespace std;
 
