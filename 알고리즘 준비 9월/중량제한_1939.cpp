@@ -1,7 +1,10 @@
+
+/*
+결국에 푸는데는 실패했다. BFS로 풀이가 가능하면 DFS도 가능 하리라 생각했는데 불가능 헀나보다.
+*/
+
 #include<iostream>
 #include<vector>
-#include<queue>
-#include<functional>
 #include<algorithm>
 using namespace std;
 
