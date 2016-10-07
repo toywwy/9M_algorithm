@@ -1,7 +1,9 @@
-6
-1033 1733
-1033 3733
-1033 3739
-1033 3779
-1033 8779
-1373 8017
+abac
+aaabbbcccaaabbbcccaaabbbccc
+abcaaabcaaabcaa
+abcd
+abcabcabc
+aabbaabb
+aaaa
+abababcabababc
+.
