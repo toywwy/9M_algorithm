@@ -1,7 +1,7 @@
 /*
 문제 : LCA
 문제 번호: 11437
-풀이법 : LCA - Lowest Common Ancestor
+풀이법 : LCA인데 DP로 문제를 해결함.
 날짜 : 161008
 기타 : 
 dp [현재노드] = { 첫번쨰 부모, 두번째 부모, 세번쨰 부모 ,,,,,}
@@ -40,6 +40,7 @@ void recur(int x)//init 하는 부분임
 		{
 			depth[k] = depth[x] + 1;//굳 정보다...진짜로
 			dp[k].push_back(x);//이게 첫번쨰 부모가될거야.
+			//이거돌면서 할 수 있을 것같은데...아마도
 			recur(k);
 		}
 	}
