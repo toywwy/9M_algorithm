@@ -1,9 +1,9 @@
 /*
-문제 :
-문제 번호:
-풀이법 :
-날짜 :
-기타 :
+문제 :		모든순열
+문제 번호:	10974
+풀이법 :		next_permutation
+날짜 :		161016
+기타 :		
 
 */
 
@@ -27,17 +27,14 @@ int main(void)
 		v.push_back(i);
 
 	for (int a : v)
-		cout << a << " ";
+		printf("%d ", a);
+	printf("\n");
 
 	while (next_permutation(v.begin(), v.end()))
 	{
 		for (int a : v)
-			cout << a << " ";
-		cout << endl;
+			printf("%d ", a);
+		printf("\n");
 	}
-
-
-
-
 	return 0;
 }
