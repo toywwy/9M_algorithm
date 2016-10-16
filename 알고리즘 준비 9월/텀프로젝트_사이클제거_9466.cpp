@@ -17,7 +17,6 @@ bool visited[100000], finished[100000];
 이제 우리는 DFS를 하다가, 싸이클이 발생하는 조건을 찾아야 합니다.
 그 조건은 바로... 다음에 방문할 정점이 k일 때, visited[k]=true고 finished[k]=false인 경우입니다.
 이 말은 무엇이냐면 인접한 정점은 이미 방문은 시작했지만 그 정점의 DFS는 아직 끝나지 않았다...
-[출처] 깊이 우선 탐색(Depth-First Search) (수정 2016-08-23)|작성자 라이
 */
 
 void dfs(int curr) {

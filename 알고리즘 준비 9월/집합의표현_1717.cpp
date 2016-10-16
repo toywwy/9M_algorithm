@@ -12,69 +12,43 @@ disjoint-set
 
 */
 
-
 #include<iostream>
-#include<algorithm>
+#include<vector>
 
 using namespace std;
 
-int *disjoint;
+int dis[1000002];
 
-int mFind(int a)
+int find(int x)
 {
-	if (disjoint[a] < 0)//-1 이라면 어디에도 소속이 된게 아니니까.
-		return a;//자기 자신이 루트임.
-	else
-		return disjoint[a] = mFind(disjoint[a]);
-		//이런 구조를 하는 이유는 나중에 바로 루트를 찾을수 있게 이어 놓는거다. 
-		//굳이 재귀를 계속 타서 들어가는게 아니라 바로 찾아갈수 있도록
+	if (dis[x] < 0) return x;
+	else return dis[x] = find(dis[x]); //새 부모 x를 등록해준다.
 }
 
-bool mUnion(int a, int b)
+bool merge(int a, int b)
 {
-	int _a = mFind(a);
-	int _b = mFind(b);
-
-	if (_a == _b)
-		return false;
-	
-	disjoint[_b] = _a;
-
-	return true;
+	a = find(a), b = find(b);
+	if (a == b) return false;
+	dis[b] = a; return true;
 }
-
-
 
 int main(void)
 {
-	int n, q; //n 집합 1000000, q 질문 100000
+	int n, m, a, b, com;;
+	cin >> n >> m;
 
-	cin >> n >> q;
-	disjoint = new int[n + 1];
-
-	fill(disjoint, disjoint + n + 1, -1);// 값은 인덱스의 값을 지니기 때문에 -1로 초기화
-
-	//서로소집합 만들기 위함...
-	//find와 union을 만들면딘다.
-
-	int command,el1,el2;
-
-	for (int i = 0; i < q; i++)
+	fill(dis, dis + n + 1, -1);
+	while (m--)
 	{
-		scanf("%d %d %d", &command, &el1, &el2);
+		scanf("%d %d %d", &com, &a, &b);
 
-		if (command==1) // 찾아라 mFind
+		if (com)// CHECK
 		{
-			if (mFind(el1) == mFind(el2))
-				printf("yes\n");
-			else
-				printf("no\n");
-		}else//합쳐라 mUnion
-		{
-			mUnion(el1, el2);
+			if (find(a) == find(b)) printf("YES\n");
+			else printf("NO\n");
 		}
+		else merge(a, b);// Union
 	}
-	//결과를 yes no로 출력한다.
 
 	return 0;
 }

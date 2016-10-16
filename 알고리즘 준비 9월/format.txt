@@ -1,8 +1,21 @@
 /*
-문제 : 
-문제 번호: 
-풀이법 : 
-날짜 : 
-기타 : 
+문제 :		
+문제 번호:	
+풀이법 :		
+날짜 :		
+기타 :		
 
 */
+
+#include<iostream>
+#include<vector>
+#include<algorithm>
+
+using namespace std;
+
+int main(void)
+{
+
+
+	return 0;
+}
