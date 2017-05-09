@@ -12,7 +12,7 @@ int arr[10001];//중복이 있다. 맵처럼 사용해서 정렬하겠음
 
 int main(void)
 {
-	int N, k=0,max=0;
+	int N, k = 0, max = 0;
 	scanf("%d", &N);//N 1천만까지 
 	for (int i = 0; i < N; i++)
 	{
