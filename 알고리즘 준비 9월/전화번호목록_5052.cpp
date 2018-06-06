@@ -1,127 +1,96 @@
 /*
-문제 : 전화번호 목록
+문제 : 전화번호목록
 문제 번호: 5052
-풀이법 : 트라이
-날짜 : 170518
-기타 : 
+풀이법 : 트라이 TRIE
+날짜 : 18.06.01
+기타 : ~Node() 소멸자를 정의 해보았다.
+** break 때문에 입력버퍼가 남아있는데 지우지 못한게 있었다.
 
 */
 
 #include<iostream>
 #include<vector>
-#include<algorithm>
+#include<string>
 
 using namespace std;
 
-class Node
-{
+//Trie 구현하면되는거임
+
+
+class Node {
 public:
-	int id;
-	bool isEnd;
-	int childCount;
-	
-	Node *next; //이 노드가 가리키는 것들의 집합
-	Node *child[10]; //이 노드의 자식들..
-	
-	Node *rearNode;
-	Node() { 
-		id = 0;
-		next = NULL; 
-		isEnd = false;
-		childCount = 0;
-	};
+	bool isLeaf;
+	Node *childs[10];
+	Node()
+	{
+		this->isLeaf = false;
+		for (int i = 0; i < 10; i++) childs[i] = nullptr;
+	}
 
-} nodes[10001];//시작 노드가 만개일수가있따....시작노드 어떻게할것인가...?
-
-bool visit[10001];//사실 의미가없다.. 트라이를 먼저만들어본다.
-
-char arr[10001];//전화번호의 수 n이 주어진다. (1 ≤ n ≤ 10000) 
+	~Node()
+	{
+		for (int i = 0; i < 10; i++)
+		{
+			if (childs[i]) delete childs[i];//알아서 그 아래꺼 까지 해제가되나?
+		}
+	}
+};
 
 
-
-
-inline int strLen(char *str)
-{
-	int k = 0;
-	while (str[k] != NULL) k++;
-
-	return k;
-}
+Node *root;
+Node *cur;
 
 int main(void)
 {
+	int N, M;
+	cin >> N;
 
-	int T;
-	cin >> T;
-
-	for (int tc = 1; tc <= T; tc++)
+	for (int itr = 0; itr < N; itr++)
 	{
-		int N;
-		cin >> N;
-	
-		for (int i = 0; i < N; i++)
+		bool ans = true;
+		root = new Node();
+		cin >> M;
+		for (int c = 0; c < M; c++)
 		{
-			scanf("%s", &arr);
 
-			int idx = 1;//분명히 시작과 끝은 구분이되야함.
-			int n = arr[0] - '0';
+			string str;
+			cin >> str;
 
-			Node *node = &nodes[n];//시작점..
-			node->id = n;
-			//시작 visit은 의미가 있을지도 모른다.
+			if (ans == false) continue;//입력 버퍼를 다 안비워줘서 그랬다.
 
-			while (arr[idx] != NULL)
+			int len = str.length();//depth가 될것이다.
+								   //삭제가 없는구조야 어렵지 않음.
+			cur = root;
+			for (int i = 0; i < len; i++)
 			{
-				n = arr[idx] - '0';
-				Node nNode;
-				nNode.id = n;
-				//여기서 있나 없나 체크해봐야한다.
-				
-				if (node->childCount == 0)
+				if (cur->childs[str[i] - '0'] && len - 1 == i) //지금 Leaf 인데 이미 객체가 생성되어있따.
 				{
-					node->next = &nNode;
-					node->rearNode = &nNode;
-					node->childCount += 1;
-				}
-				else
-				{
-					int cnt = 0;
-					Node *chk = node;
-					bool chkNode = false;
-					while (cnt<node->childCount)//end는 필요없다.
-					{
-						if (chk->id == n)
-						{
-							chkNode = true;
-							break;
-						}
-						chk = chk->next;
-						
-						cnt++;
-					}
-
-					if (chkNode == false)
-					{
-						node->rearNode = &nNode;
-						node->childCount += 1;
-					}
+					ans = false;
+					break;
 				}
 
-				idx++;
-				if (arr[idx] == NULL)
-				{
+				if (!cur->childs[str[i] - '0']) cur->childs[str[i] - '0'] = new Node();
 
+				if (len - 1 != i && (cur->childs[str[i] - '0']->isLeaf == true)) //Leaf가 있는데 끝이 아닌경우
+				{
+					ans = false;
+					break;
 				}
+
+				if (len - 1 == i)//Leaf 표시
+					cur->childs[str[i] - '0']->isLeaf = true;
+
+				cur = cur->childs[str[i] - '0'];
+
 			}
-			
-
-
-
 		}
 
+		if (ans) cout << "YES" << endl;
+		else cout << "NO" << endl;
 
-
-
+		delete root;
 	}
+
+
 	return 0;
 }
