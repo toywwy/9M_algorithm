@@ -1,19 +1,2 @@
-1
-11
-BAPC.in
-BAPC.out
-BAPC.tex
-filter
-filename
-filenames
-clean
-cleanup.IN1
-cleanup.IN2
-cleanup.out
-problem.tex
-0
-BAPC
-files
-cleanup
-cleanup.IN
-cleaning
+5 4
+5 4 3 2 1
