@@ -53,7 +53,8 @@ void prim()
 		{
 			visit[top.t] = true;
 			res += top.v;
-			for (P p : adj[top.t]) q.push(p);
+			for (P p : adj[top.t])
+				if(visit[p.t]==false) q.push(p);
 		}
 	}
 	cout << res << endl;
