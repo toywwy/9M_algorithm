@@ -12,8 +12,7 @@
 #include<algorithm>
 #include<string>
 
-#define SIZE 10002
-#define LEN 200004
+#define SIZE 100004
 using namespace std;
 
 int N, M;
@@ -57,7 +56,7 @@ int heapPush(Node *value)
 	{
 		int tempValue = heap[(current - 1) / 2].value;
 		int tempTo = heap[(current - 1) / 2].to;
-		
+
 		heap[(current - 1) / 2].value = heap[current].value;
 		heap[(current - 1) / 2].to = heap[current].to;
 
@@ -117,23 +116,29 @@ int heapPop()//heap은 별도의 자료구조라 포인터로 연결될필요가없다. to value만 필
 }
 
 
-void addNode(int from, int to, int value)
+Node * addNode(int from, int to, int value)
 {
 	Node * p = new Node();
 	p->to = to;
 	p->value = value;
 	p->prev = ids[from];
 	ids[from] = p;
+
+	return p;
 }
 
-void prim()
+void prim(Node *startNode,int startIdx)
 {
 	//초기화
-	visit[1] = true;
-	int res = 0;
-	
-	for(Node * cur = ids[1] ; cur!=0 ; cur=cur->prev) heapPush(cur);
+	visit[startNode->to] = true;
+	visit[startIdx] = true;
 
+	int res=startNode->value;
+
+	for (Node * cur = ids[startNode->to]; cur != 0; cur = cur->prev) heapPush(cur);
+	for (Node * cur = ids[startIdx]; cur != 0; cur = cur->prev) heapPush(cur);
+
+	int maxValue = 0;
 	while (heapSize > 0)
 	{
 		Node top = heap[0];
@@ -143,34 +148,44 @@ void prim()
 		{
 			visit[top.to] = true;
 			res += top.value; //비용
+			maxValue = max(maxValue, top.value);
+
 			for (Node * cur = ids[top.to]; cur != 0; cur = cur->prev)
 				if (visit[cur->to] == false) heapPush(cur);
 		}
 	}
-	cout << res << endl;
+	cout << res - maxValue << endl;
 }
 
 int main(void)
 {
 	ios::sync_with_stdio(false); cin.tie(0);
-	
+
 	cin >> N >> M;
 
-	int a, b, c;
+	int a, b, c, mMin = 10001,sIdx=0;
+	Node *sNode;
 	for (int i = 0; i < M; i++)
 	{
 		cin >> a >> b >> c;
 		//양방향이다.
-		addNode(a, b , c);
-		addNode(b , a , c);
+
+		Node * ret =addNode(a, b, c);
+		addNode(b, a, c);
+		if (mMin > c) {
+			sIdx = a;
+			sNode = ret;
+			mMin = c;
+		}//a,b무엇을 선택해도 무관
 		//index 0부터
 	}
 
 	//스패닝 트리 !!노드 하나씩 추가해가면서 만들면된다.
 
 	heapInit();
-
-	prim();
+	
+	if (N == 2) cout << 0 << endl;
+	else prim(sNode,sIdx);
 
 	return 0;
 }

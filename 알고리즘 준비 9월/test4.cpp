@@ -1,49 +1,57 @@
 #include<iostream>
-#include<cstdio>
 
 using namespace std;
 
-class Node{
+class Node {
 public:
-	int n;
-	Node *prev;
-}nodes[1000];
+	int to;
+	int v;
+	Node * prev;
+}nodes[100000];
 
 int idx;
 
+Node* ids[10];
 
-/* //얘는 되는데 .. 아래 에는 안된다. 주소값으로 참조 하려고해도..
-Node* newNode()
+Node * newNode()
 {
 	return &nodes[idx++];
 }
-*/
 
-Node newNode()
-{
-	return nodes[idx++];
-}
 
-Node *tail;
 int main(void)
 {
-	for (int i = 0; i < 10; i++)
-	{
+	int N, M;
+	cin>>N>>M;
 
-		Node *p = &newNode();
-		p->n = i + 1;
-		
-		p->prev = tail;
-		tail = p;
+	while (M--)
+	{
+		int from, to, v;
+		cin >> from >> to >> v;
+		Node * p = newNode();
+		p->to = to;
+		p->v = v;
+
+		p->prev = ids[from];
+		ids[from] = p;
 	}
 
-	Node *cur = tail;
 
-	while (cur != 0)
+	for (int i = 1; i <= 7; i++)
 	{
-		cout << cur->n << endl;
-		cur = cur->prev;
+		cout << i << " : ";
+	
+		Node *cur = ids[i];
+
+		while (cur != 0)
+		{
+			cout << cur->to << "(" << cur->v << ")  ";
+			cur = cur->prev;
+		}
+
+		cout << endl;
 	}
+
 
 
 	return 0;
